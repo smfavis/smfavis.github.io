@@ -364,11 +364,24 @@
     margin: 0 0 18px;
   }
   .about-copy strong{ color: var(--ink); }
+  .about-side{
+    display:flex;
+    flex-direction:column;
+    gap: 24px;
+  }
   .fact-card{
     background: var(--card);
     border: 1px solid var(--line);
     border-radius: 6px;
     padding: 26px 28px;
+  }
+  .fact-card-title{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--forest);
+    margin: 0 0 16px;
   }
   .fact-list{
     list-style:none;
@@ -438,6 +451,46 @@
   /* ============ PROJECT ============ */
   #project{
     background: var(--paper-alt);
+  }
+  .projects-intro{
+    color: var(--ink-soft);
+    font-size: 16px;
+    max-width: 60ch;
+    margin: 0 0 28px;
+  }
+  .filter-row{
+    display:flex;
+    gap: 10px;
+    flex-wrap:wrap;
+    margin-bottom: 40px;
+  }
+  .filter-tag{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    background: var(--card);
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    padding: 9px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  }
+  .filter-tag:hover{
+    border-color: var(--forest);
+    color: var(--ink);
+  }
+  .filter-tag.is-active{
+    background: var(--ink);
+    border-color: var(--ink);
+    color: #fff;
+  }
+  .project-card{
+    transition: opacity 0.3s ease;
+  }
+  .project-card.is-hidden{
+    display:none;
   }
   .project-intro{
     display:grid;
@@ -607,7 +660,7 @@
   /* ============ SKILLS ============ */
   .skills-grid{
     display:grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 32px;
   }
   .skill-card{
@@ -672,12 +725,17 @@
   }
 
   /* ============ RESPONSIVE ============ */
+  @media (max-width: 980px){
+    .skills-grid{ grid-template-columns: 1fr 1fr; }
+  }
+
   @media (max-width: 880px){
     .hero-grid, .about-grid, .project-intro{
       grid-template-columns: 1fr;
     }
     .kpi-grid{ grid-template-columns: repeat(2, 1fr); }
     .skills-grid{ grid-template-columns: 1fr; }
+    .about-side{ gap: 20px; }
     .job{ grid-template-columns: 1fr; gap: 10px; }
     .nav-links{ display:none; }
     .nav-cta{ display:none; }
@@ -724,10 +782,10 @@
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#experience">Experience</a></li>
-      <li><a href="#project">Project</a></li>
+      <li><a href="#project">Projects</a></li>
       <li><a href="#skills">Skills</a></li>
     </ul>
-    <a href="#contact" class="nav-cta">Contact</a>
+    <a href="#contact" class="nav-cta">Get in touch</a>
     <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
@@ -735,7 +793,7 @@
   <div class="mobile-menu" id="mobileMenu">
     <a href="#about">About</a>
     <a href="#experience">Experience</a>
-    <a href="#project">Featured Project</a>
+    <a href="#project">Projects</a>
     <a href="#skills">Skills</a>
     <a href="#contact">Contact</a>
   </div>
@@ -794,14 +852,24 @@
         <p>That shows up across everything I've done: reconciling funding data for university sports clubs, structuring legal case files for an active clinic, and running the finances of a student organization I built from nothing. In each case, the job was the same: turn scattered records into something dependable.</p>
         <p>I'm currently looking for <strong>Business Analyst, Financial Analyst, Operations Analyst, and Data Analyst</strong> roles where that background can go to work.</p>
       </div>
-      <div class="fact-card reveal">
-        <ul class="fact-list">
-          <li><span class="k">Education</span><span class="v">B.A., Economics</span></li>
-          <li><span class="k">Minor</span><span class="v">Legal Studies</span></li>
-          <li><span class="k">Based in</span><span class="v">Houston &amp; Austin, TX</span></li>
-          <li><span class="k">Core tools</span><span class="v">Excel, Power BI, RStudio, STATA</span></li>
-          <li><span class="k">Targeting</span><span class="v">Business / Financial / Ops / Data Analyst</span></li>
-        </ul>
+      <div class="about-side reveal">
+        <div class="fact-card">
+          <h3 class="fact-card-title">Education</h3>
+          <ul class="fact-list">
+            <li><span class="k">Degree</span><span class="v">B.A., Economics</span></li>
+            <li><span class="k">Minor</span><span class="v">Legal Studies</span></li>
+            <li><span class="k">Based in</span><span class="v">Houston &amp; Austin, TX</span></li>
+          </ul>
+        </div>
+        <div class="fact-card">
+          <h3 class="fact-card-title">Highlights</h3>
+          <ul class="fact-list">
+            <li><span class="k">Records analyzed</span><span class="v">7,043 (Telco project)</span></li>
+            <li><span class="k">Clubs overseen</span><span class="v">26 (UH funding &amp; compliance)</span></li>
+            <li><span class="k">Org founded</span><span class="v">Grew to 44 members</span></li>
+            <li><span class="k">Targeting</span><span class="v">Business / Financial / Ops / Data Analyst</span></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -812,7 +880,7 @@
   <div class="wrap">
     <div class="ledger-label reveal"><span class="no">No. 02</span><span class="leader"></span>Experience</div>
     <div class="eyebrow-row reveal">
-      <h2 class="section-title">Where the reporting habit was built.</h2>
+      <h2 class="section-title">Work Experience</h2>
     </div>
     <div class="timeline">
       <div class="job reveal">
@@ -858,10 +926,21 @@
   </div>
 </section>
 
-<!-- ============ FEATURED PROJECT ============ -->
+<!-- ============ PROJECTS ============ -->
 <section id="project">
   <div class="wrap">
-    <div class="ledger-label reveal"><span class="no">No. 03</span><span class="leader"></span>Featured Project</div>
+    <div class="ledger-label reveal"><span class="no">No. 03</span><span class="leader"></span>Projects</div>
+    <div class="eyebrow-row reveal">
+      <h2 class="section-title">My Projects</h2>
+    </div>
+    <p class="reveal projects-intro">A selection of business and data analytics work. Filter by focus area, or scroll through for the full breakdown below.</p>
+    <div class="filter-row reveal" role="tablist" aria-label="Filter projects by focus area">
+      <button class="filter-tag is-active" data-filter="all" role="tab" aria-selected="true">All</button>
+      <button class="filter-tag" data-filter="financial" role="tab" aria-selected="false">Financial &amp; Revenue Analytics</button>
+      <button class="filter-tag" data-filter="business" role="tab" aria-selected="false">Business &amp; Operations Analytics</button>
+    </div>
+
+    <div class="project-card" data-categories="financial business">
     <div class="project-intro">
       <div class="reveal">
         <h3>Telco Customer Churn &amp; Revenue Risk Analysis</h3>
@@ -933,6 +1012,7 @@
     <div class="project-impact reveal">
       <strong>Read:</strong> churn concentrates heavily among month-to-month customers paying by electronic check on fiber optic service, while two-year contract holders are effectively retained. That segmentation turns a single churn-rate headline into a short list of where a retention team should actually focus first.
     </div>
+    </div>
   </div>
 </section>
 
@@ -965,6 +1045,15 @@
           <span class="tag">Stakeholder Communication</span>
         </div>
       </div>
+      <div class="skill-card reveal">
+        <h3>Interests</h3>
+        <div class="tag-cloud">
+          <span class="tag">Financial Analysis &amp; Reporting</span>
+          <span class="tag">Business &amp; Operations Analytics</span>
+          <span class="tag">Data-Driven Decision Making</span>
+          <span class="tag">Legal &amp; Compliance Research</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -984,7 +1073,7 @@
 </section>
 
 <footer>
-  <div class="wrap">© <span id="year"></span> Sivion Favis. Built with HTML, CSS &amp; JavaScript. Hosted on GitHub Pages.</div>
+  <div class="wrap">© <span id="year"></span> Sivion Favis. Built and maintained as a living portfolio.</div>
 </footer>
 
 <script>
@@ -1069,6 +1158,26 @@
     });
   }, { threshold: 0.3 });
   barFills.forEach(function(el){ barObserver.observe(el); });
+
+  // Project filter tabs
+  var filterTags = document.querySelectorAll('.filter-tag');
+  var projectCards = document.querySelectorAll('.project-card');
+  filterTags.forEach(function(tag){
+    tag.addEventListener('click', function(){
+      filterTags.forEach(function(t){
+        t.classList.remove('is-active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tag.classList.add('is-active');
+      tag.setAttribute('aria-selected', 'true');
+      var filter = tag.getAttribute('data-filter');
+      projectCards.forEach(function(card){
+        var cats = (card.getAttribute('data-categories') || '').split(' ');
+        var show = filter === 'all' || cats.indexOf(filter) !== -1;
+        card.classList.toggle('is-hidden', !show);
+      });
+    });
+  });
 
   // Header shadow on scroll
   var header = document.querySelector('header');
